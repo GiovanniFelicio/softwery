@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Softwery</title>
+
+    <link rel="stylesheet" href="{% static 'css/my.css'%}">
+</head>
+<body>
+    <a href="{% url 'logout' %}">Logout</a>
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Login</td>
+                <td>#</td>
+                <td>#</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.login}}</td>
+                    <td><a href="{% url 'updateUser' id=user.id%}">Editar</a></td>
+                    <td><a href="{% url 'deleteUser' id=user.id%}">Deletar</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
