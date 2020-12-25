@@ -3,8 +3,4 @@ from django.contrib.auth import logout
 
 def index(request):
     return render(request, 'homeIndex.html')
-
-def doLogout(request):
-    logout(request)
-    return redirect('indexHome')
     
