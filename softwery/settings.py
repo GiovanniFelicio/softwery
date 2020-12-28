@@ -17,7 +17,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-print(BASE_DIR)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -27,7 +26,7 @@ SECRET_KEY = config('APP_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['192.168.0.28']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -127,18 +126,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
 STATICFILES_DIRS = [
-    'static'
+    'static',
 ]
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/auth/login/'
 
-LOGIN_REDIRECT_URL = 'indexUser'
+LOGIN_REDIRECT_URL = 'homeIndex'
 
 AUTH_USER_MODEL = 'user.user'
+

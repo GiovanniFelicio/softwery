@@ -3,5 +3,5 @@ from .views import index
 from django.contrib.auth.views import LoginView
 
 urlpatterns = [
-    path('', index, name='indexHome')
+    path('', index, name='homeIndex')
 ]
