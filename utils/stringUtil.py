@@ -1,4 +1,4 @@
-def test(string: str, length: int) -> str:
+def cut(string: str, length: int) -> str:
     lengthAux = length
     stringAux = ''
     strings = list()
