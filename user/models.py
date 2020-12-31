@@ -1,5 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+import sys
+
+sys.path.append('..')
+from app.models import App
+from company.models import Company
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, login, name, password, email, is_active=False, is_staff=False, is_admin=False):
@@ -32,6 +37,8 @@ class User(AbstractBaseUser):
     date_birth = models.DateField(null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    apps = models.ManyToManyField(App, db_table='SFT_USER_APP')
+    company = models.ForeignKey(to=Company, on_delete=models.RESTRICT, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 

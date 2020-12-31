@@ -21,8 +21,9 @@ class UserBaseDatatableView(BaseDatatableView):
     max_display_length = 10
     
 class UserCreateView(CreateView):
-    def form_valid():
+    def form_valid(self, request, *args, **kwargs):
         pass
+     
     model = User
     columns = ['id', 'name', 'email', 'created_at']
     max_display_length = 10
