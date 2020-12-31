@@ -38,7 +38,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     apps = models.ManyToManyField(App, db_table='SFT_USER_APP')
-    company = models.ForeignKey(to=Company, on_delete=models.RESTRICT, default=None)
+    company = models.ForeignKey(to=Company, on_delete=models.RESTRICT, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
