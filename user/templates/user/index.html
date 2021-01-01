@@ -2,7 +2,7 @@
 {% block content %}
 {% load tags%}
 
-<table id="user-list" class="table table-hover display responsive nowrap" style="width:100%">
+<table id="userList" class="table table-hover display responsive nowrap" style="width:100%">
     <thead>
         <tr>
             <td>Id</td>
@@ -14,61 +14,39 @@
     <tbody></tbody>
 </table>
 
-<div class="modal fade" id="modalNewUser" tabindex="-1" role="dialog" aria-labelledby="modalNewUser" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <form action="{% url 'createUser' %}">            
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Create new user</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {% csrf_token %}
-                    <div class="form-group row">
-                        <label for="userName" class="col-sm-3 col-form-label">Name: </label>
-                        <div class="col-sm-9">
-                            <input type="text" name="name" class="form-control" id="userName">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="userEmail" class="col-sm-3 col-form-label">E-mail: </label>
-                        <div class="col-sm-9">
-                            <input type="email" name="email" class="form-control" id="userEmail">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="userLogin" class="col-sm-3 col-form-label">LogIn: </label>
-                        <div class="col-sm-9">
-                            <input type="text" name="login" class="form-control" id="userLogin">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="userBirth" class="col-sm-3 col-form-label">Date of Birth: </label>
-                        <div class="col-sm-9">
-                            <input type="date" name="date_birth" class="form-control" id="userBirth">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Save</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
+<div id="events"></div>
 {% endblock %}
 
 {% block script %}
 <script language="javascript">
     $(document).ready(function () {
-        var oTable = $('#user-list').dataTable({
+        var events = $('#events');
+        var oTable = $('#userList').dataTable({
             "processing": true,
             "serverSide": true,
-            "ajax": "{% url 'userList' %}"
+            "ajax": "{% url 'userList' %}",
+            "columns": [
+                { "data": "id" },
+                { "data": "name" },
+                { "data": "email" },
+                { "data": "createdAt" }
+            ],
+            dom: 'Bfrtip',
+            select: true,
+            buttons: [
+                {
+                    text: "<i class='fas fa-edit'></i>",
+                    action: function (e, dt, type, indexes) {
+                        var data = this.rows( { selected: true }).data();
+                        console.log(data[0]);
+                    }                
+                },{
+                    text: "<i class='fas fa-sync-alt'></i>",
+                    action: function (e, dt, type, indexes) {
+                        this.ajax.reload();
+                    }
+                }
+            ]
         });
     });
 
@@ -84,6 +62,6 @@
 
 {% block footer %}
 <div class="d-flex justify-content-end">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalNewUser">New</button>
+    <a href="{% url 'userCreate'%}" class="btn btn-primary">New</a>
 </div>
 {% endblock%}

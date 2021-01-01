@@ -17,6 +17,11 @@
   <link rel="stylesheet" href="{% static 'css/summernote-bs4.min.css'%}">
   <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css'%}">
   <link rel="stylesheet" href="{% static 'css/responsive.dataTables.min.css'%}">
+  <link rel="stylesheet" href="{% static 'css/buttons.dataTables.min.css'%}">
+  <link rel="stylesheet" href="{% static 'css/select.dataTables.min.css'%}">
+
+  {% block head %}{% endblock %}
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -28,43 +33,31 @@
   <!-- sidebar -->
   {% include 'home/fragments/indexSidebar.html' %}
 
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
+          </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Dashboard v1</li>
             </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         {% block content %}{% endblock %}
       </div>
     </section>
   </div>
-  <!-- /.content-wrapper -->
   <footer class="main-footer">
     {% block footer %}{% endblock%}
   </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
 </div>
 <script src="{% static 'js/jquery.min.js'%}"></script>
 <script src="{% static 'js/jquery-ui.min.js'%}"></script>
@@ -76,7 +69,8 @@
 <script src="{% static 'js/sparkline.js'%}"></script>
 <script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
 <script src="{% static 'js/dataTables.responsive.min.js'%}"></script>
-<script src="{% static 'js/responsive.bootstrap4.min.js'%}"></script>
+<script src="{% static 'js/dataTables.buttons.min.js'%}"></script>
+<script src="{% static 'js/dataTables.select.min.js'%}"></script>
 <script src="{% static 'js/jquery.knob.min.js'%}"></script>
 <script src="{% static 'js/moment.min.js' %}"></script>
 <script src="{% static 'js/daterangepicker.js' %}"></script>

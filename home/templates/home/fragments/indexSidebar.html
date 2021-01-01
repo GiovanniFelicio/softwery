@@ -71,12 +71,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{% url 'indexUser' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Users</p>
-                </a>
-              </li>              
+              {% for menu in user.menus.all %}
+                <li class="nav-item">
+                  <a href="{% url menu.path %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>{{menu.name}}</p>
+                  </a>
+                </li>
+              {% endfor %}          
             </ul>
           </li>
         </ul>

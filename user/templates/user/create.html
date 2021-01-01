@@ -1,15 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOFTWERY</title>
-</head>
-<body>
-    <form action="{% url 'createUser' %}" method="POST">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" value="Save">
-    </form>
-</body>
-</html>
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="demo"></div>
+<form id="userCreate" method="POST">
+    {% csrf_token %}
+    <div class="card">
+        <div class="card-header">
+            <label class="h4 text-primary">Registration Data</label>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label for="inputName" class="col-sm-2 col-form-label">Name: </label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputName" name="name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputDate" class="col-sm-2 col-form-label">Date of Birth: </label>
+                <div class="col-md-6">
+                    <input type="date" class="form-control" id="inputDate" name="dateBirth">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail" class="col-sm-2 col-form-label">E-mail: </label>
+                <div class="col-md-6">
+                    <input type="email" class="form-control checkIfExists" id="inputEmail" data-url="/user/find/" name="email">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputNumber" class="col-sm-2 col-form-label">Number: </label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputNumber" name="number">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputCompany" class="col-sm-2 col-form-label">Lead Company: </label>
+                <div class="col-md-6">
+                    <select name="company" class="form-control" id=company></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <label class="h4 text-primary">General settings</label>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/select2.min.js' %}"></script>
+<script language="javascript">
+    function submit() {
+        $('#userCreate').submit();
+    }
+    $('#company').select2({
+        theme: "classic",
+        ajax: {
+            url: "{% url 'companyListJson' %}",
+            dataType: "json",
+            quietMillis: 1000
+        }
+    });
+</script>
+{% endblock %}
+
+{% block footer %}
+<div class="d-flex justify-content-end">
+    <button class="btn btn-success" onclick="submit()">Save</button>
+</div>
+{% endblock%}

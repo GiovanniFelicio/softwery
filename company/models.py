@@ -1,4 +1,5 @@
 from django.db import models
+from .manager import CompanyManager
 
 class Company(models.Model):
     
@@ -6,6 +7,8 @@ class Company(models.Model):
     active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+        
+    objects = CompanyManager()
     
     class Meta():
         db_table = 'SFT_COMPANY'
