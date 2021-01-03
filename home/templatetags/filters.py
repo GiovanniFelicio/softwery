@@ -1,9 +1,5 @@
 from django import template
-
-import sys
-sys.path.append('...')
-
-from utils import stringUtil
+from softwery.utils import stringUtil
 
 register = template.Library()
 

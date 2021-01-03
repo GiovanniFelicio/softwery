@@ -1,12 +1,14 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SOFTWERY | Dashboard</title>
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="{% static 'css/all.min.css'%}">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="{% static 'css/tempusdominus-bootstrap-4.min.css'%}">
@@ -19,71 +21,117 @@
   <link rel="stylesheet" href="{% static 'css/responsive.dataTables.min.css'%}">
   <link rel="stylesheet" href="{% static 'css/buttons.dataTables.min.css'%}">
   <link rel="stylesheet" href="{% static 'css/select.dataTables.min.css'%}">
+  <link rel="stylesheet" href="{% static 'css/myCss.css'%}">
 
   {% block head %}{% endblock %}
-
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+  <!-- <img src="{% static 'img/new-loader.gif'%}" id="loader"> -->
+  <div id="preloader">
+    <div class="inner">
+      <!-- HTML DA ANIMAÇÃO MUITO LOUCA DO SEU PRELOADER! -->
+      <div class="bolas">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper">
+    <!-- navbar -->
+    {% include 'home/fragments/indexNavbar.html' %}
 
+    <!-- sidebar -->
+    {% include 'home/fragments/indexSidebar.html' %}
 
-  <!-- navbar -->
-  {% include 'home/fragments/indexNavbar.html' %}
-  
-  <!-- sidebar -->
-  {% include 'home/fragments/indexSidebar.html' %}
-
-  <div class="content-wrapper">
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Dashboard</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard v1</li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
+      <section class="content">
+        <div class="container-fluid">
+          {% if messages %}
+            <div id="messages">
+              {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class="alert alert-danger row d-flex align-items-center">
+                  <div class="col-md-10">
+                    {{message}}
+                  </div>
+                  <div class="col-md-2 d-flex justify-content-end">
+                    <button type="button" id="closeMessage" class="btn text-white">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% block content %}{% endblock %}
+        </div>
+      </section>
     </div>
-    <section class="content">
-      <div class="container-fluid">
-        {% block content %}{% endblock %}
-      </div>
-    </section>
+    <footer class="main-footer">  
+      {% block footer %}{% endblock%}
+    </footer>
   </div>
-  <footer class="main-footer">
-    {% block footer %}{% endblock%}
-  </footer>
-</div>
-<script src="{% static 'js/jquery.min.js'%}"></script>
-<script src="{% static 'js/jquery-ui.min.js'%}"></script>
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
-<script src="{% static 'js/Chart.min.js'%}"></script>
-<script src="{% static 'js/sparkline.js'%}"></script>
-<script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
-<script src="{% static 'js/dataTables.responsive.min.js'%}"></script>
-<script src="{% static 'js/dataTables.buttons.min.js'%}"></script>
-<script src="{% static 'js/dataTables.select.min.js'%}"></script>
-<script src="{% static 'js/jquery.knob.min.js'%}"></script>
-<script src="{% static 'js/moment.min.js' %}"></script>
-<script src="{% static 'js/daterangepicker.js' %}"></script>
-<script src="{% static 'js/tempusdominus-bootstrap-4.min.js' %}"></script>
-<script src="{% static 'js/summernote-bs4.min.js' %}"></script>
-<script src="{% static 'js/jquery.overlayScrollbars.min.js' %}"></script>
-<script src="{% static 'js/adminlte.js' %}"></script>
-<script src="{% static 'js/demo.js'%}"></script>
-<script src="{% static 'js/dashboard.js'%}"></script>
+  <script src="{% static 'js/jquery.min.js'%}"></script>
+  <script src="{% static 'js/jquery-ui.min.js'%}"></script>
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'js/Chart.min.js'%}"></script>
+  <script src="{% static 'js/sparkline.js'%}"></script>
+  <script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
+  <script src="{% static 'js/dataTables.responsive.min.js'%}"></script>
+  <script src="{% static 'js/dataTables.buttons.min.js'%}"></script>
+  <script src="{% static 'js/dataTables.select.min.js'%}"></script>
+  <script src="{% static 'js/jquery.knob.min.js'%}"></script>
+  <script src="{% static 'js/moment.min.js' %}"></script>
+  <script src="{% static 'js/daterangepicker.js' %}"></script>
+  <script src="{% static 'js/tempusdominus-bootstrap-4.min.js' %}"></script>
+  <script src="{% static 'js/summernote-bs4.min.js' %}"></script>
+  <script src="{% static 'js/jquery.overlayScrollbars.min.js' %}"></script>
+  <script src="{% static 'js/adminlte.js' %}"></script>
+  <script src="{% static 'js/demo.js'%}"></script>
+  <script src="{% static 'js/dashboard.js'%}"></script>
 
-<script type="module" src="{% static 'js/softwery.js'%}"></script>
+  <script type="module" src="{% static 'js/softwery.js'%}"></script>
 
-{% block script %}{% endblock %}
+
+  <script type="text/javascript">
+    $(window).on('load', function () {
+      $('#preloader .inner').fadeOut();
+      $('#preloader').delay(350).fadeOut('slow');
+      $('body').delay(350).css({ 'overflow': 'visible' });
+    })
+
+    $('#closeMessage').on('click', function (e) {
+      $('#messages').fadeOut(500, function () {
+        $('#messages').remove();
+      });
+    }); 
+
+  </script>
+
+  {% block script %}{% endblock %}
+
 
 </body>
+
 </html>

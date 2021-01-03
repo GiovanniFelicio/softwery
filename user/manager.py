@@ -22,5 +22,12 @@ class UserManager(BaseUserManager):
     def get_queryset(self):
         return UserQuerySet(model=self.model, using=self._db, hints=self._hints)
     
-    def listUsersByCompany(self, company):
-        return self.get_queryset().listUsersByCompany(company)
+    def list_users_by_company(self, company):
+        return self.get_queryset().filter(company=company)
+
+    def find_by_field_and_value(self, field, value):
+        return self.get_queryset().raw("""
+                                        SELECT id 
+                                            FROM SFT_USER 
+                                                WHERE %s = '%s'
+                                        """ % (field, value))

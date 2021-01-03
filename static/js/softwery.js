@@ -5,19 +5,28 @@ $(function () {
         handle: ".modal-header"
     });
 
-    $('.checkIfExists').on('change', function(){
-        let url = `${$(this).attr('data-url')}?value=${$(this).val()}&field=${$(this).prop('name')}`;
+    $('.check-if-exists').on('change', function(){
+        let field = $(this);
+        let nameField = field.prop('name');
+        let url = `${field.attr('data-url')}?value=${field.val()}&field=${nameField}`;
+        let parent = field.parent();
         $.ajax({
             url: url,
             type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
             success: function (data) {
-                console.log(data);
+                $(field).removeClass('is-invalid');
+                $(parent).find('div.invalid-feedback').remove()
+                $(field).addClass('is-valid')
             },
-            error: function(data) {
-                console.log(data)
+            error: function(e) {
+                $(field).removeClass('is-valid');
+                $(field).addClass('is-invalid');                
+                parent.append(`<div class="invalid-feedback">${nameField.charAt(0).toUpperCase() + nameField.slice(1)} is already being used</div>`)
             }
         });
     });
 })
+
+function isValidChar(str) {
+    return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+}

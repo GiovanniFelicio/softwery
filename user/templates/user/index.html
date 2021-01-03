@@ -2,12 +2,13 @@
 {% block content %}
 {% load tags%}
 
-<table id="userList" class="table table-hover display responsive nowrap" style="width:100%">
+<table id="userList" class="table table-hover display responsive nowrap text-center" style="width:100%">
     <thead>
         <tr>
             <td>Id</td>
             <td>Name</td>
             <td>E-mail</td>
+            <td>Company</td>
             <td>Created at</td>
         </tr>
     </thead>
@@ -29,6 +30,7 @@
                 { "data": "id" },
                 { "data": "name" },
                 { "data": "email" },
+                { "data": "company" },
                 { "data": "createdAt" }
             ],
             dom: 'Bfrtip',

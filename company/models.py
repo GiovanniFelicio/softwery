@@ -12,3 +12,6 @@ class Company(models.Model):
     
     class Meta():
         db_table = 'SFT_COMPANY'
+        
+    def __str__(self):
+        return self.name
