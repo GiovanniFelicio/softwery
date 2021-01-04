@@ -1,6 +1,6 @@
 from .models import Company
 
-class CompanyFacade():
+class CompanyHelper():
     
     @staticmethod
     def _list(active=False):

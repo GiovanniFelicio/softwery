@@ -12,6 +12,9 @@ class Company(models.Model):
     
     class Meta():
         db_table = 'SFT_COMPANY'
+        permissions = [
+            ('can_update_compnay', 'Allows the user to update the company')
+        ]
         
     def __str__(self):
         return self.name

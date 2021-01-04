@@ -37,5 +37,3 @@ def form_create_user():
     form['company'] = form_options(True, -1, True)
     
     return form
-    
-    

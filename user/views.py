@@ -9,6 +9,18 @@ from .helper import UserHelper
 from softwery.utils import formUtil
 from django.contrib import messages
 
+from user.models import User
+from rest_framework import viewsets
+from rest_framework import permissions, authentication
+from user.serializer import UserSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
+
+
 @login_required
 def find(request):
     if request.method == 'GET':
