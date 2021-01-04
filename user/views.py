@@ -2,9 +2,7 @@ from django.http import HttpResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import User
-from .forms import UserForm
 from django_datatables_view.base_datatable_view import BaseDatatableView
-from django.views import View
 from .helper import UserHelper
 from softwery.utils import formUtil
 from django.contrib import messages
@@ -34,29 +32,6 @@ def find(request):
             return HttpResponse(status=409)
         
     return HttpResponse(status=200)
-
-class UserIndexView(View):
-    def get(self, request):
-        return render(request, 'user/index.html')
-    
-    def post(self, request):
-        pass
-    
-class UserCreateView(View):
-    def get(self, request):
-        return render(request, 'user/create.html')
-    
-    def post(self, request):
-        
-        (fields, expected_form)= formUtil.validate(request.POST)
-        
-        if len(expected_form) > 0:
-            messages.error(request,expected_form)
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        
-        UserHelper.generate_and_create_user(fields)
-        
-        return redirect('userIndex')
 
 class UserBaseDatatableView(BaseDatatableView):
     model = User

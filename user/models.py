@@ -17,6 +17,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     date_birth = models.DateField(name='dateBirth',null=True)
     is_active = models.BooleanField(name='active',default=True)
     is_admin = models.BooleanField(name='is_admin',default=False)
+    is_staff = models.BooleanField(name='is_staff', default=False)
     menus = models.ManyToManyField('menu.Menu', db_table='SFT_USER_MENU')
     company = models.ForeignKey(to='company.Company', on_delete=models.RESTRICT, null=True)
     groups = models.ManyToManyField( Group,

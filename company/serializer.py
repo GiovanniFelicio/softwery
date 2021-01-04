@@ -6,4 +6,4 @@ class ListSerializer(serializers.ModelSerializer):
     user_set = UserSerializer(many=True)
     class Meta:
         model = Company
-        fields = ['id','name','user_set']
+        fields = ['id', 'name', 'active', 'user_set']
