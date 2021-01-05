@@ -3,5 +3,5 @@ from django.db import models
 
 class CompanyQuerySet(models.QuerySet):
 
-    def listCompanies(self, active: bool):
+    def list_companies(self, active: bool):
         return self.filter(active=active).all()

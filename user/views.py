@@ -8,16 +8,21 @@ from softwery.utils import formUtil
 from django.contrib import messages
 
 from user.models import User
-from rest_framework import viewsets
+from rest_framework import viewsets, views
 from rest_framework import permissions, authentication
 from user.serializer import UserSerializer
+from rest_framework.response import Response
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication]
+    # permission_classes = [permissions.IsAuthenticated]
+    # authentication_classes = [authentication.TokenAuthentication]
 
+    def list(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(instance=users, many=True)
+        return Response(serializer.data)
 
 @login_required
 def find(request):
